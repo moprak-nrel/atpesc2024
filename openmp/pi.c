@@ -43,21 +43,23 @@ double pi_modern_omp(double step) {
 }
 
 int main() {
-    double x, pi, sum = 0.0, step = 1.0/ (double) num_steps;
-    double start_time, run_time;
-    start_time = omp_get_wtime();
-    sum = pi_serial(step);
-    pi = sum * step;
-    run_time = omp_get_wtime() - start_time;
-    printf("serial   pi: %lf runtime: %lf\n", pi, run_time);
-    start_time = omp_get_wtime();
-    sum = pi_omp_critical(step);
-    pi = sum * step;
-    run_time = omp_get_wtime() - start_time;
-    printf("critical pi: %lf runtime: %lf\n", pi, run_time);
-    start_time = omp_get_wtime();
-    sum = pi_modern_omp(step);
-    pi = sum * step;
-    run_time = omp_get_wtime() - start_time;
-    printf("modern   pi: %lf runtime: %lf\n", pi, run_time);
+  double x, sum = 0.0, step = 1.0 / (double)num_steps;
+  double start_time, run_time_serial, run_time_critical, run_time_modern;
+  start_time = omp_get_wtime();
+  sum = pi_serial(step);
+  double pi_s = sum * step;
+  run_time_serial = omp_get_wtime() - start_time;
+
+  start_time = omp_get_wtime();
+  sum = pi_omp_critical(step);
+  double pi_c = sum * step;
+  run_time_critical = omp_get_wtime() - start_time;
+
+  start_time = omp_get_wtime();
+  sum = pi_modern_omp(step);
+  double pi_m = sum * step;
+  run_time_modern = omp_get_wtime() - start_time;
+  printf("\tserial:\t\t pi: %f, time: %f \n\tomp critical:\t pi: %f, time: %f "
+         "\n\tomp reduce:\t pi: %f, time: %f \n",
+         pi_s, run_time_serial, pi_c, run_time_critical, pi_m, run_time_modern);
 }
