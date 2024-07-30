@@ -5,7 +5,6 @@
 #include <omp.h>
 #include <stdio.h>
 static long num_steps = 10000000;
-/* static long num_steps = 4000; */
 
 double pi_serial(double step) {
     double sum = 0;
