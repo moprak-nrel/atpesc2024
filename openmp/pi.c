@@ -62,7 +62,7 @@ double pi_recursive(double step, int start, int end){
 }
 
 int main() {
-    double x, sum = 0.0, step = 1.0 / (double)num_steps, pi;
+    double sum = 0.0, step = 1.0 / (double)num_steps, pi;
     double start_time, run_time;
 
     start_time = omp_get_wtime();
